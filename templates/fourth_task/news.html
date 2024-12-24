@@ -1,0 +1,29 @@
+{% extends 'fourth_task/menu.html' %}
+
+{% block content %}
+    <h1>Новости</h1>
+    <div>
+        {% for item in page_obj %}
+            <div>
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.description }}</p>
+            </div>
+        {% empty %}
+            <p>Нет новостей для отображения.</p>
+        {% endfor %}
+    </div>
+
+    <div>
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+        {% endif %}
+
+        <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+        {% endif %}
+    </div>
+{% endblock %}
